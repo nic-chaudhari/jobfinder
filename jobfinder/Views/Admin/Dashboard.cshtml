@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Super Admin";
+    Layout = "~/Views/Shared/Super_adminLayout.cshtml";
+}
+@{
+    var media = "(max-width: 768px)";
+}
+
+<style>
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        padding: 16px;
+        text-align: center;
+        background-color: #fff;
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .counter {
+        font-size: 48px;
+        font-weight: bold;
+    }
+
+    .card-r {
+        background-color: #f0ad4e;
+    }
+
+    .card-j {
+        background-color: #5cb85c;
+    }
+
+    .card-a {
+        background-color: #d9534f;
+    }
+
+    .card-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .card-row {
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            margin-bottom: 16px;
+        }
+    }
+</style>
+<div class="container">
+<div class="card-row">
+    <div class="card card-r">
+        <div class="card-title">RECRUITER</div>
+        <p class="card-text"><span class="counter">@ViewBag.RecruitersCount</span></p>
+    </div>
+    <div class="card card-j">
+        <div class="card-title">JOB SEEKERS</div>
+        <p class="card-text"><span class="counter">@ViewBag.JobSeekersCount</span></p>
+    </div>
+    <div class="card card-a">
+        <div class="card-title">ADMIN</div>
+        <p class="card-text"><span class="counter">@ViewBag.AdminsCount</span></p>
+    </div>
+</div>
+</div>

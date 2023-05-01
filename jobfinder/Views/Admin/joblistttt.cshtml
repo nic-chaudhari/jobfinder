@@ -1,0 +1,96 @@
+﻿@model IEnumerable<jobfinder.Models.Jobpost>
+
+@{
+    ViewData["Title"] = "joblistttt";
+}
+
+<h1>joblistttt</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.posted_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.company_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vacancy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.job_nature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.application_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.job_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.required_skills)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.experience)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.posted_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.company_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vacancy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.job_nature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.application_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.job_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.required_skills)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.experience)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+
+    </tbody>
+</table>

@@ -1,0 +1,71 @@
+﻿@model jobfinder.Models.Jobpost
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Post_job</h1>
+
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PostJob">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="posted_date" class="control-label">JOB POST DATE</label>
+                <input asp-for="posted_date" class="form-control" placeholder="mm/dd/yyyy" />
+                <span asp-validation-for="posted_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="location" class="control-label">LOCATION</label>
+                <input asp-for="location" class="form-control" />
+                <span asp-validation-for="location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="company_name" class="control-label">COMPANY NAME</label>
+                <input asp-for="company_name" class="form-control" />
+                <span asp-validation-for="company_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vacancy" class="control-label">VACANCY</label>
+                <input asp-for="vacancy" class="form-control" />
+                <span asp-validation-for="vacancy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="job_nature" class="control-label">JOB NATURE</label>
+                <input asp-for="job_nature" class="form-control" />
+                <span asp-validation-for="job_nature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="salary" class="control-label">SALARY</label>
+                <input asp-for="salary" class="form-control" />
+                <span asp-validation-for="salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="application_date" class="control-label">APPLICATION DATE</label>
+                <input asp-for="application_date" class="form-control" placeholder="mm/dd/yyyy" />
+                <span asp-validation-for="application_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="job_description" class="control-label">JOB DESCRIPTION</label>
+                <input asp-for="job_description" class="form-control" />
+                <span asp-validation-for="job_description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="required_skills" class="control-label">REQUIRED SKILLS</label>
+                <input asp-for="required_skills" class="form-control" />
+                <span asp-validation-for="required_skills" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="experience" class="control-label">EXPERIENCE</label>
+                <input asp-for="experience" class="form-control" />
+                <span asp-validation-for="experience" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Post" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,179 @@
+﻿@model jobfinder.Models.signup
+
+@{
+    ViewData["Title"] = "Super Admin";
+    Layout = "~/Views/Shared/Super_adminLayout.cshtml";
+}
+
+<h3 class="form-control" stylE="text-align:center; font-weight:bold">
+    SIGNUP
+</h3>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="new_admin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+            <label asp-for="Firstname" class="control-label"></label>
+            <input asp-for="Firstname" class="form-control" />
+            <span asp-validation-for="Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <label asp-for="Lastname" class="control-label"></label>
+            <input asp-for="Lastname" class="form-control" />
+            <span asp-validation-for="Lastname" class="text-danger"></span>
+            </div>*@
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Firstname" class="control-label"></label>
+                    <input asp-for="Firstname" class="form-control" />
+                    <span asp-validation-for="Firstname" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Lastname" class="control-label"></label>
+                    <input asp-for="Lastname" class="form-control" />
+                    <span asp-validation-for="Lastname" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phonenumber" class="control-label"></label>
+                <input asp-for="Phonenumber" class="form-control" />
+                <span asp-validation-for="Phonenumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label">GENDER</label>
+                <div>
+                    <label style="display: inline-block;">
+                        <input asp-for="Gender" type="radio" value="1" /> Male
+                    </label>&nbsp;
+                    <label style="display: inline-block;">
+                        <input asp-for="Gender" type="radio" value="2" /> Female
+                    </label>&nbsp;
+                    <label style="display: inline-block;">
+                        <input asp-for="Gender" type="radio" value="3" /> Transgender
+                    </label>&nbsp;
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="countryid" class="control-label">COUNTRY</label>
+                <select id="ddlCountry" asp-for="countryid" class="form-control" onchange="populateStates()">
+                    <option value="">--Select Country--</option>
+                    @foreach (var countries in ViewBag.Countries)
+                    {
+                        <option value="@countries.Value">@countries.Text</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label asp-for="stateid" class="control-label">STATE</label>
+                <br />
+                <select id="ddlState" asp-for="stateid" class="form-control" onchange="populateCities()">
+                    <option value="">--Select State--</option>
+                    @if (ViewBag.States != null)
+                    {
+                        foreach (var states in ViewBag.States)
+                        {
+                            <option value="@states.Value">@states.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="cityid" class="control-label">CITY</label>
+                <br />
+                <select id="ddlCity" asp-for="cityid" class="form-control">
+                    <option value="">--Select City--</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Role" class="control-label">ROLE TYPE:</label>
+                <div>
+                    <label>
+                        @Html.RadioButtonFor(model => model.Role, 4)
+                        <span>Admin</span>
+                    </label>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function populateStates() {
+            var countryid = $("#ddlCountry").val();
+            if (countryid != "" && @((ViewBag.Countries != null).ToString().ToLower())) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetStatesByCountryId",
+                    data: { countryid: countryid },
+                    success: function (data) {
+                        $("#ddlState").empty();
+                        $("#ddlState").append($('<option>').text('--Select State--').attr('value', ''));
+                        for (var i = 0; i < data.length; i++) {
+                            var state = data[i];
+                            console.log(state);
+                            var option = `<option value="${state.value}">${state.text}</option>`;
+                            $("#ddlState").append(option);
+                        }
+                    },
+                    error: function () {
+                        alert('Error occurred while getting states.');
+                    }
+                });
+            }
+        }
+        function populateCities() {
+            var stateid = $("#ddlState").val();
+            if (stateid != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetCitiesByStateId",
+                    data: { stateid: stateid },
+                    success: function (data) {
+                        $("#ddlCity").empty();
+                        $("#ddlCity").append($('<option>').text('--Select City--').attr('value', ''));
+                        for (var i = 0; i < data.length; i++) {
+                            var city = data[i];
+                            console.log(city);
+                            var option = `<option value="${city.value}">${city.text}</option>`;
+                            $("#ddlCity").append(option);
+                        }
+                    },
+                    error: function () {
+                        alert('Error occurred while getting cities.');
+                    }
+                });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<jobfinder.Models.Jobpost>
+
+@{
+    ViewData["Title"] = "showjob";
+    Layout = "~/Views/Shared/_Jobseekerlayout.cshtml";
+}
+<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="~/assets/css/flaticon.css">
+<link rel="stylesheet" href="~/assets/css/price_rangs.css">
+<link rel="stylesheet" href="~/assets/css/slicknav.css">
+<link rel="stylesheet" href="~/assets/css/animate.min.css">
+<link rel="stylesheet" href="~/assets/css/magnific-popup.css">
+<link rel="stylesheet" href="~/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="~/assets/css/themify-icons.css">
+<link rel="stylesheet" href="~/assets/css/slick.css">
+<link rel="stylesheet" href="~/assets/css/nice-select.css">
+<link rel="stylesheet" href="~/assets/css/style.css">
+<style>
+    #job-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .single-job-items {
+        width: 48%;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+        .single-job-items h4 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .single-job-items li {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 16px;
+            color: #999;
+        }
+
+    .items-link {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+        .items-link a {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+    #apply-form {
+        display: none;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
+
+        #apply-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #apply-form input[type="text"],
+        #apply-form input[type="email"],
+        #apply-form input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        
+</style>
+
+<main id="job-posts">
+    @foreach (var item in Model)
+    {
+        <div class="single-job-items">
+            <div class="job-items">
+                <div class="job-tittle">
+                    <a href="@Url.Action("Details", new { id = item.id})"><h4>@Html.DisplayFor(modelItem => item.company_name)</h4></a>
+                    <ul>
+                        <li>@Html.DisplayFor(modelItem => item.required_skills)</li>
+                        <li><i class="fas fa-map-marker-alt"></i>@Html.DisplayFor(modelItem => item.location)</li>
+                        <li>₹@Html.DisplayFor(modelItem => item.salary)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="items-link">
+                <a href="#" onclick="showApplyForm('@Url.Action("Apply", "Job", new { id = item.id })')">Apply</a>
+                <span>@Html.DisplayFor(modelItem => item.posted_date)</span>
+            </div>
+        </div>
+    }
+</main>
+@*<main id="job-posts">
+    @foreach (var item in Model)
+    {
+        <div class="single-job-items mb-30">
+            <div class="job-items">
+                <div class="job-tittle">
+                    <a href="@Url.Action("Details", new { id = item.id})"><h4>@Html.DisplayFor(modelItem => item.company_name)</h4></a>
+                    <ul>
+                        <li>@Html.DisplayFor(modelItem => item.required_skills)</li>
+                        <li><i class="fas fa-map-marker-alt"></i>@Html.DisplayFor(modelItem => item.location)</li>
+                        <li>₹@Html.DisplayFor(modelItem => item.salary)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="items-link f-right">
+                <a href="#" onclick="showApplyForm('@Url.Action("Apply", "Job", new { id = item.id })')">Apply</a>
+                <span>@Html.DisplayFor(modelItem => item.posted_date)</span>
+            </div>
+
+
+        </div>
+    }
+</main>*@
+
+<div id="apply-form" style="display:none">
+    <form action="@Url.Action("showjob", "Home")" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="job_id" id="job_id" value="" />
+        <div>
+            <label for="name" class="control-label">Name:</label>
+            <input type="text" name="jobseeker_name" class="form-control" required />
+        </div><br />
+        <div>
+            <label for="email" class="control-label">Email:</label>
+            <input type="email" name="jobseeker_email" class="form-control" required />
+        </div><br />
+        <div>
+            <label for="resume" class="control-label">Resume:</label><br />
+            <input type="file" name="resume" required />
+        </div><br />
+        <div class="form-group">
+            <input type="submit" value="Submit" class=" btn head-btn1" />
+        </div>
+    </form>
+</div>
+
+
+
+
+<script>
+    function showApplyForm(url) {
+        $('#job_id').val(url.split('/').pop());
+        $('#job-posts').hide();
+        $('#apply-form').show();
+    }
+</script>
+

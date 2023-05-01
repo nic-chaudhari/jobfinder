@@ -1,0 +1,109 @@
+﻿@model signup
+
+@{
+    ViewData["Title"] = "showjob";
+    Layout = "~/Views/Shared/_Jobseekerlayout.cshtml";
+}
+<style>
+    .card {
+        width: 350px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin: 10px;
+    }
+
+    .card-header {
+        background-color: deeppink;
+        padding: 16px;
+        text-align: center;
+    }
+
+        .card-header .text-header {
+            margin: 0;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 1px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+    .btnn {
+        padding: 12px 24px;
+        margin-left: 13px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: deeppink;
+        color: #fff;
+        text-transform: uppercase;
+        transition: background-color 0.2s ease-in-out;
+        cursor: pointer
+    }
+
+        .btnn:hover {
+            background-color: #ccc;
+            color: #333;
+        }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <div class="text-header">Change your details here</div>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            
+            <div>
+                <label>First Name:</label>
+                <input type="text" asp-for="Firstname" class="form-control" />
+            </div>
+            <div>
+                <label>Last Name:</label>
+                <input type="text" asp-for="Lastname" class="form-control" />
+            </div>
+            <div>
+                <label>Username:</label>
+                <input type="text" asp-for="Username" class="form-control" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" asp-for="Password" class="form-control" />
+            </div>
+            <div>
+                <label>Phone Number:</label>
+                <input type="text" asp-for="Phonenumber" class="form-control" />
+            </div>
+            <br />
+            <div>
+                <button type="submit" class="btnn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
